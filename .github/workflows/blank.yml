@@ -11,5 +11,5 @@ jobs:
           ref: ${{ github.event.client_payload.ref }}
           
       - run: |
-        echo ${{ github.event }}
-        echo env
+          echo ${{ github.event }}
+          echo env
