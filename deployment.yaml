@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    hiya-billto-costcenter: argocd-notifications-controller
+    hiya-billto-owner: coretech
+    hiya-operations-contact: jutley
+    hiya-operations-product: argocd
+  name: argocd-notifications-controller
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: argocd-notifications-controller
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: argocd-notifications-controller
+        hiya-billto-costcenter: argocd-notifications-controller
+        hiya-billto-owner: coretech
+        hiya-operations-contact: jutley
+        hiya-operations-product: argocd
+    spec:
+      containers:
+        - name: argocd-notifications-controller
+          command:
+            - /app/argocd-notifications-backend
+            - controller
+            - --loglevel=warn
+          image: argoprojlabs/argocd-notifications:v1.0.2
+          imagePullPolicy: Always
+          workingDir: /app
+      serviceAccountName: argocd-notifications-controller
